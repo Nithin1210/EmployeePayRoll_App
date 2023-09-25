@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content-head="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Payroll</title>
     <link rel="stylesheet" href="EmpForm.css">
 </head>
 
 <body>
 
-    <body style="margin: 0px; overflow: hidden;"></body>
+    <body style="overflow: hidden;"></body>
     <div class="header">
         <img src="images/logo.png" alt="log">
         <div class="h5">EMPLOYEE
@@ -25,23 +25,19 @@
 
             <div class="content-head">
                 <label class="label">Name</label>
-                <input class="input" type="text" name="name" id="name" placeholder="Enter your Name" 
+                <input class="input" type="text" name="name" id="name" placeholder="Enter your Name"
                     onchange="nameChange(event)">
             </div>
 
             <div class="content-head">
-                <label class="label">Profie image</label>
-                <input type="radio" id="image1" name="profileImage" value="1"
-                    onchange="profileImageChange(event)">
+                <label class="label">Profile image</label>
+                <input type="radio" id="image1" name="profileImage" value="1" onchange="profileImageChange(event)">
                 <label for="image1"><img src="profile-images/Ellipse -10.png" alt="img1"></label>
-                <input type="radio" id="image2" name="profileImage "value="2"
-                    onchange="profileImageChange(event)">
+                <input type="radio" id="image2" name="profileImage" value="2" onchange="profileImageChange(event)">
                 <label for="image2"><img src="profile-images/Ellipse -2.png" alt="img2"></label>
-                <input type="radio" id="image3" name="profileImage" value="3"
-                    onchange="profileImageChange(event)">
+                <input type="radio" id="image3" name="profileImage" value="3" onchange="profileImageChange(event)">
                 <label for="image3"><img src="profile-images/Ellipse -1.png" alt="img3"></label>
-                <input type="radio" id="image4" name="profileImage" value="4"
-                    onchange="profileImageChange(event)">
+                <input type="radio" id="image4" name="profileImage" value="4" onchange="profileImageChange(event)">
                 <label for="image4"><img src="profile-images/Ellipse -3.png" alt="img4"></label>
             </div>
 
@@ -81,14 +77,13 @@
                     <option value="6">6000</option>
                     <option value="7">7000</option>
                     <option value="8">8000</option>
-
                 </select>
             </div>
 
             <div class="content-head">
                 <label class="label">Start Date</label>
                 <div class="input-field-date">
-                    <select class="common-date"    name="Day" id="day" placeholder="Day">
+                    <select class="common-date" name="Day" id="day" placeholder="Day" onchange="dayChange(event)">
                         <option value="" disabled selected hidden>Day</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -122,7 +117,7 @@
                         <option value="30">30</option>
                         <option value="31">31</option>
                     </select>
-                    <select class="common-date"  name="Month" id="month">
+                    <select class="common-date" name="Month" id="month" onchange="monthChange(event)">
                         <option value="" disabled selected hidden>Month</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -135,10 +130,9 @@
                         <option value="9">9</option>
                         <option value="10">10</option>
                         <option value="11">11</option>
-                        <option value="11">12</option>
-
+                        <option value="12">12</option>
                     </select>
-                    <select class="common-date"  name="Year" id="year">
+                    <select class="common-date" name="Year" id="year" onchange="yearChange(event)">
                         <option value="" disabled selected hidden>Year</option>
                         <option value="0">2000</option>
                         <option value="1">2001</option>
@@ -173,12 +167,12 @@
 
             <div class="content-head">
                 <label class="label">Notes</label>
-                <textarea name="Notes" id="notes" cols="50" rows="3" ></textarea>
+                <textarea name="Notes" id="notes" cols="50" rows="3" onchange="commentsChange(event)"></textarea>
             </div>
 
             <div class="button-div">
                 <button class="button-common" onclick="cancelClick()">Cancel</button>
-                <div class=button-padding>
+                <div class="button-padding">
                     <button class="button-common" onclick="submitClick()">Submit</button>
                     <button class="button-common" onclick="resetClick()">Reset</button>
                 </div>
@@ -186,78 +180,126 @@
 
         </div>
     </div>
-</body>
 
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            var data = JSON.parse(localStorage.getItem("obj"));
+            console.log(data);
+            document.getElementById("name").value = data.name;
+            document.getElementById("salary").value = data.salary;
+        })
+        let name = "";
+        let profileImage = "";
+        let gender = "";
+        let dept = "";
+        let sal = "";
+        let day = "", month = "", year = "";
+        let comment = "";
 
-<script>
-    window.addEventListener('DOMContentLoaded', (event) => {
-        var data = JSON.parse(localStorage.getItem("obj"));
-        console.log(data);
-        document.getElementById("name").value=data.name;
-        document.getElementById("salary").value=data.salary;
-    })
-    let name = "";
-    let profileImage = "";
-    let gender = "";
-    let dept = "";
-    let sal = "";
-    let day="",month="",year="";
-    let comment="";
-    function nameChange(event) {
-        name = event.target.value;
-    }
-    function profileImageChange(event) {
-        profileImage = event.target.value;
-    }
-    function genderChange(event) {
-        gender = event.target.value;
-    }
-    function deptChange(event) {
-        dept = event.target.value;
-    }
-    function salaryChange(event) {
-        sal = event.target.value;
-    }
-    function dayChange(event){
-        day = event.target.value;
-    }
-    function monthChange(event){
-        month = event.target.value;
-    }
-    function yearChange(event){
-        year = event.target.value;
-    }
-    function commentsChange(event){
-        comment = event.target.value;
-    }
-    function submitClick(){
-        console.log(name+"\n"+profileImage+"\n"+gender+"\n"+dept+"\n"+sal+"\n"+day+":"+month+":"+year+"\n"+comment);
-        var obj={
-            name:name,
-            profileImage:profileImage,
-            gender:gender,
-            department:dept,
-            salary:sal,
-            dob:day+":"+month+":"+year,
-            comments:comment
+        function nameChange(event) {
+            name = event.target.value;
         }
-        localStorage.setItem("EmpObject",JSON.stringify(obj));
-        var retrieval = localStorage.getItem("EmpObject");
-        console.log(retrieval);
-    }
-    function resetClick(){
-        name="";
-        document.getElementById("name").value="";
-        sal="";
-        document.getElementById("salary").value="";
-    }
-    function cancelClick(){
-        window.location.href="EmpForm.html";
-    }
 
-</script>
-</html>
+        function profileImageChange(event) {
+            profileImage = event.target.value;
+        }
 
-</script>
+        function genderChange(event) {
+            gender = event.target.value;
+        }
+
+        function deptChange(event) {
+            dept = event.target.value;
+        }
+
+        function salaryChange(event) {
+            sal = event.target.value;
+        }
+
+        function dayChange(event) {
+            day = event.target.value;
+        }
+
+        function monthChange(event) {
+            month = event.target.value;
+        }
+
+        function yearChange(event) {
+            year = event.target.value;
+        }
+
+        function commentsChange(event) {
+            comment = event.target.value;
+        }
+
+        function submitClick() {
+            console.log(name + "\n" + profileImage + "\n" + gender + "\n" + dept + "\n" + sal + "\n" + day + ":" + month + ":" + year + "\n" + comment);
+            var obj = {
+                name: name,
+                profileImage: profileImage,
+                gender: gender,
+                department: dept,
+                salary: sal,
+                dob: day + ":" + month + ":" + year,
+                comments: comment
+            }
+            localStorage.setItem("EmpObject", JSON.stringify(obj));
+            var retrieval = localStorage.getItem("EmpObject");
+            console.log(retrieval);
+        }
+
+        function resetClick() {
+            name = "";
+            const nameInput = document.getElementById("name");
+            if (nameInput) {
+                nameInput.value = "";
+            }
+
+            sal = "";
+            const salaryInput = document.getElementById("salary");
+            if (salaryInput) {
+                salaryInput.value = "";
+            }
+            const genderRadios = document.getElementsByName("gender");
+            genderRadios.forEach((radio) => {
+                radio.checked = false;
+            });
+
+            const profileImageRadios = document.getElementsByName("profileImage");
+            profileImageRadios.forEach((radio) => {
+                radio.checked = false;
+            });
+
+            const departmentCheckboxes = document.getElementsByName("dept");
+            departmentCheckboxes.forEach((checkbox) => {
+                checkbox.checked = false
+            });
+
+            day = "";
+            month = "";
+            year = "";
+            const dayselect = document.getElementById("day");
+            const monthselect = document.getElementById("month");
+            const yearselect = document.getElementById("year");
+
+            if (dayselect && monthselect && yearselect) {
+                dayselect.value = "";
+                monthselect.value = "";
+                yearselect.value = "";
+            }
+            comment = "";
+            const notestextarea = document.getElementById("notes");
+            if (notestextarea) {
+                notestextarea.value = "";
+            }
+
+
+        }
+
+        function cancelClick() {
+            window.location.href = "EmpForm.html";
+        }
+    </script>
+</body>
 
 </html>
